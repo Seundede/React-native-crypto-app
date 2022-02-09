@@ -1,16 +1,24 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 import tw from "tailwind-react-native-classnames";
-import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
+import { Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 import crypto from "../../assets/data/crypto.json";
+import CoinChart from "./CoinChart";
 
 export default function CoinDetails() {
   const {
     image: { small },
     name,
     symbol,
-    market_data: { market_cap_rank, current_price },
+    market_data: {
+      market_cap_rank,
+      current_price,
+      price_change_percentage_24h,
+    },
   } = crypto;
+  const handleIconColor =
+    price_change_percentage_24h < 0 ? "#dc2626" : "#34d399";
+  const handleIcon = price_change_percentage_24h < 0 ? "caretdown" : "caretup";
   return (
     <View style={tw`px-3`}>
       <View style={tw`flex flex-row items-center  justify-between`}>
@@ -30,13 +38,29 @@ export default function CoinDetails() {
       </View>
       <View style={tw`p-3 flex flex-row justify-between`}>
         <View>
-          <Text style={tw`text-white  text-base`}>{name}</Text>
+          <Text style={tw`text-white text-base`}>{name}</Text>
           <Text style={tw`text-white text-2xl font-bold tracking-wider`}>
             ${current_price.usd}
           </Text>
         </View>
-        <Text style={tw`text-white`}>123</Text>
+
+        <View
+          style={tw.style(`flex flex-row items-center rounded-md p-2`, {
+            backgroundColor: handleIconColor,
+          })}
+        >
+          <AntDesign
+            name={handleIcon}
+            size={14}
+            color="white"
+            style={tw`mr-1`}
+          />
+          <Text style={tw`text-white font-bold`}>
+            {price_change_percentage_24h.toFixed(2)}%
+          </Text>
+        </View>
       </View>
+      <CoinChart />
     </View>
   );
 }

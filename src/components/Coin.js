@@ -52,7 +52,7 @@ export default function Coin({marketCoin}) {
             color={handleIconColor}
             style={tw`self-center mr-2`}
           />
-          <Text style={(tw`mr-2`, { color: handleIconColor })}>
+          <Text style={tw.style(`mr-2`, { color: handleIconColor })}>
             {price_change_percentage_24h.toFixed(2)}%
           </Text>
         </View>
