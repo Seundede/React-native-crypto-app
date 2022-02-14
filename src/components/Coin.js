@@ -1,38 +1,47 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-export default function Coin({marketCoin}) {
-    const {
-      image,
-      name,
-      market_cap_rank,
-      symbol,
-      price_change_percentage_24h,
-      current_price,
-      market_cap,
-    } = marketCoin;
-    const handleMarketCap = (market_cap) => {
-        if(market_cap > 1_000_000_000_000) {
-            return `${Math.floor(market_cap / 1_000_000_000_000)}T`
-        } 
-         if (market_cap > 1_000_000_000) {
-           return `${Math.floor(market_cap / 1_000_000_000)}B`;
-         } 
-          if (market_cap > 1_000_000) {
-            return `${Math.floor(market_cap / 1_000_000)}M`;
-          } 
-          if (market_cap > 1_000) {
-            return `${Math.floor(market_cap / 1_000)}K`;
-          } 
-          return market_cap
-    };
-    const handleIconColor =
-      price_change_percentage_24h < 0 ? "#dc2626" : "#34d399";
-      const handleIcon =
-        price_change_percentage_24h < 0 ? "caretdown" : "caretup";
+export default function Coin({ marketCoin }) {
+  const {
+    image,
+    name,
+    market_cap_rank,
+    symbol,
+    price_change_percentage_24h,
+    current_price,
+    market_cap,
+    id,
+  } = marketCoin;
+  const handleMarketCap = (market_cap) => {
+    if (market_cap > 1_000_000_000_000) {
+      return `${Math.floor(market_cap / 1_000_000_000_000)}T`;
+    }
+    if (market_cap > 1_000_000_000) {
+      return `${Math.floor(market_cap / 1_000_000_000)}B`;
+    }
+    if (market_cap > 1_000_000) {
+      return `${Math.floor(market_cap / 1_000_000)}M`;
+    }
+    if (market_cap > 1_000) {
+      return `${Math.floor(market_cap / 1_000)}K`;
+    }
+    return market_cap;
+  };
+  const handleIconColor =
+    price_change_percentage_24h < 0 ? "#dc2626" : "#34d399";
+  const handleIcon = price_change_percentage_24h < 0 ? "caretdown" : "caretup";
+  const navigation = useNavigation();
+  const route = useRoute();
+/**const {params: {coinId}} = route**/
+  console.log(coinId);
   return (
-    <View style={tw`flex flex-row p-3 border-b-2 border-gray-800`}>
+    <Pressable
+      style={tw`flex flex-row p-3 border-b-2 border-gray-800`}
+      onPress={() => navigation.navigate("CoinDetails", {coinId:id})}
+    >
+
       <Image
         style={tw`h-10 w-10 mr-4 self-center`}
         source={{
@@ -61,6 +70,6 @@ export default function Coin({marketCoin}) {
         <Text style={tw`text-white mb-2`}>{current_price}</Text>
         <Text style={tw`text-white`}>MCap {handleMarketCap(market_cap)}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
