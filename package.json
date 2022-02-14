@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@rainbow-me/animated-charts": "^1.0.0-alpha.6",
+    "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "axios": "^0.26.0",

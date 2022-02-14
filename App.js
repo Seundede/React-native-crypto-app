@@ -29,8 +29,7 @@ export default function App() {
           <Stack.Screen name="CoinDetails" component={CoinDetails} />
         </Stack.Navigator>
         <Tab.Navigator>
-          <Tab.Screen />
-          <Tab.Screen />
+          <Tab.Screen name= 'Home' component={Home}/>
         </Tab.Navigator>
       </View>
     </NavigationContainer>
