@@ -48,7 +48,7 @@ export default function CoinDetails() {
   }, []);
 
   if (loading || !data) {
-    return <ActivityIndicator size="large" style={tw`mt-14`} />;
+    return <ActivityIndicator size="large" style={tw`mt-24`} />;
   }
   const {
     image: { small },
@@ -162,7 +162,7 @@ export default function CoinDetails() {
             <Text style={tw`text-white self-center`}>USD</Text>
             <TextInput
               value={usdPrice}
-              style={tw` text-base flex-1 h-10  m-2 border-b-4 border-b-zinc-200 p-2 text-white`}
+              style={tw` text-base flex-1 h-10  m-2 border-b-4 border-gray-500 p-2 text-white`}
               keyboardType="numeric"
               onChange={({ nativeEvent: { text } }) => handleUsdPrice(text)}
             />
