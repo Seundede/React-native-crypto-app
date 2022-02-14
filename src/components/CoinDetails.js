@@ -1,34 +1,69 @@
-import { View, Text, Image, Dimensions, TextInput, Pressable } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  TextInput,
+  ActivityIndicator,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import tw from "tailwind-react-native-classnames";
 import { Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
-import crypto from "../../assets/data/crypto.json";
 import {
   ChartDot,
   ChartPath,
   ChartPathProvider,
   ChartYLabel,
 } from "@rainbow-me/animated-charts";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { getCoinRequest, getMarketChart } from "../Request";
 
 export default function CoinDetails() {
+  const navigation = useNavigation();
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [chatData, setChatData] = useState(null);
+  const [coinPrice, setCoinPrice] = useState("1");
+  const [usdPrice, setUsdPrice] = useState("");
+
+  const route = useRoute();
+  const {
+    params: { coinId }
+  } = route;
+
+
+
+  const getCoinData = async () => {
+    setLoading(true);
+    const getCoinData = await getCoinRequest(coinId);
+    const getCoinChart = await getMarketChart(coinId);
+    setData(getCoinData);
+    setChatData(getCoinChart);
+    setUsdPrice(getCoinData.market_data.current_price.usd.toString());
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getCoinData();
+  }, []);
+
+  if (loading || !data) {
+    return <ActivityIndicator size="large" style={tw`mt-14`} />;
+  }
   const {
     image: { small },
     name,
     symbol,
-    prices,
-    market_data: {
-      market_cap_rank,
-      current_price,
-      price_change_percentage_24h,
-    },
-  } = crypto;
-  const [coinPrice, setCoinPrice] = useState("1");
-  const [usdPrice, setUsdPrice] = useState(current_price.usd.toString());
+    market_data: { current_price, price_change_percentage_24h },
+  } = data;
+  const { prices } = chatData;
+
+
   const handleIconColor =
     price_change_percentage_24h < 0 ? "#dc2626" : "#34d399";
   const handleIcon = price_change_percentage_24h < 0 ? "caretdown" : "caretup";
   const { width: size } = Dimensions.get("window");
+
   const handleFormat = (value) => {
     "worklet";
     if (value === "") {
@@ -36,34 +71,39 @@ export default function CoinDetails() {
     }
     return `$${parseFloat(value).toFixed(2)}`;
   };
+
   const handleChartColor =
     current_price.usd > prices[0][1] ? "#16c784" : "#ea3943";
 
   const handleUsdPrice = (value) => {
     setUsdPrice(value);
-    const floatValue = parseFloat(value) || 0
-    const result = (floatValue / current_price.usd).toFixed(4)
+    const floatValue = parseFloat(value) || 0;
+    const result = (floatValue / current_price.usd).toFixed(4);
     setCoinPrice(result.toString());
   };
+
   const handlecoinPrice = (value) => {
     setCoinPrice(value);
-   const floatValue = parseFloat(value) || 0
-   const result = (floatValue * current_price.usd).toFixed(2);
+    const floatValue = parseFloat(value) || 0;
+    const result = (floatValue * current_price.usd).toFixed(2);
     setUsdPrice(result.toString());
   };
-const navigation = useNavigation()
+
   return (
-    <View
-      style={tw`px-3`}
-    >
+    <View style={tw`px-3`}>
       <ChartPathProvider
         data={{
           points: prices.map((price) => ({ x: price[0], y: price[1] })),
           smoothingStrategy: "bezier",
         }}
       >
-        <View style={tw`flex flex-row items-center  justify-between`}>
-          <Ionicons name="chevron-back" size={24} color="white" onPress={()=>navigation.goBack()}/>
+        <View style={tw`flex flex-row items-center justify-between`}>
+          <Ionicons
+            name="chevron-back"
+            size={24}
+            color="white"
+            onPress={() => navigation.goBack()}
+          />
           <View style={tw`flex flex-row items-center`}>
             <Image source={{ uri: small }} style={tw`h-10 w-10`} />
             <Text style={tw`text-white text-base font-bold mx-2`}>
@@ -100,7 +140,7 @@ const navigation = useNavigation()
         <View>
           <ChartPath
             height={size / 2}
-            stroke={handleIconColor} /**Edit to function */
+            stroke={handleIconColor}
             width={size}
             strokeWidth={2}
           />
@@ -113,7 +153,7 @@ const navigation = useNavigation()
             </Text>
             <TextInput
               value={coinPrice}
-              style={tw` text-base flex-1 h-10 m-2 border-b-4 border-b-zinc-200 p-2 text-white`}
+              style={tw` text-base flex-1 h-10 m-2 border-b-4 border-gray-800 p-2 text-white`}
               keyboardType="numeric"
               onChange={({ nativeEvent: { text } }) => handlecoinPrice(text)}
             />

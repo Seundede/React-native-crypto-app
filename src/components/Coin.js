@@ -1,7 +1,7 @@
 import { Image, Pressable, Text, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Coin({ marketCoin }) {
   const {
@@ -33,15 +33,12 @@ export default function Coin({ marketCoin }) {
     price_change_percentage_24h < 0 ? "#dc2626" : "#34d399";
   const handleIcon = price_change_percentage_24h < 0 ? "caretdown" : "caretup";
   const navigation = useNavigation();
-  const route = useRoute();
-/**const {params: {coinId}} = route**/
-  console.log(coinId);
+  
   return (
     <Pressable
       style={tw`flex flex-row p-3 border-b-2 border-gray-800`}
-      onPress={() => navigation.navigate("CoinDetails", {coinId:id})}
+      onPress={() => navigation.navigate("CoinDetails", { coinId: id })}
     >
-
       <Image
         style={tw`h-10 w-10 mr-4 self-center`}
         source={{
