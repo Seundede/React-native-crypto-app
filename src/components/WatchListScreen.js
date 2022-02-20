@@ -1,12 +1,18 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, FlatList } from "react-native";
+import React, { useContext } from "react";
+import tw from "tailwind-react-native-classnames";
+import { ListContext } from "../Context";
+import Coin from "./Coin";
 
 const WatchListScreen = () => {
-  return (
-    <View>
-      <Text>WatchListScreen</Text>
-    </View>
-  )
-}
+  const {listData }= useContext(ListContext);
 
-export default WatchListScreen
+  return (
+    <FlatList
+      data={listData}
+      renderItem={({ item }) => <Coin marketCoin={item} />}
+    />
+  );
+};
+
+export default WatchListScreen;

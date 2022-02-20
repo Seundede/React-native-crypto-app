@@ -110,7 +110,7 @@ export default function CoinDetails() {
               {symbol.toUpperCase()}
             </Text>
           </View>
-          <FontAwesome5 name="user" size={20} color="white" />
+          <FontAwesome5 name="star" size={20} color="white" />
         </View>
         <View style={tw`p-3 flex flex-row justify-between`}>
           <View>

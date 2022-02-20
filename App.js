@@ -1,7 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Navigation } from "./src/Navigation";
+import ListContextProvider from "./src/Context";
 
 export default function App() {
   return (
@@ -12,10 +13,12 @@ export default function App() {
         },
       }}
     >
-      <View style={styles.container}>
-        <StatusBar style="light" />
-        <Navigation />
-      </View>
+      <ListContextProvider>
+        <View style={styles.container}>
+          <StatusBar style="light" />
+          <Navigation />
+        </View>
+      </ListContextProvider>
     </NavigationContainer>
   );
 }
@@ -25,8 +28,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#121212",
     paddingTop: 50,
-  },
-  letter: {
-    color: "white",
   },
 });
