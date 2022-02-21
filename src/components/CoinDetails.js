@@ -6,9 +6,9 @@ import {
   TextInput,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import tw from "tailwind-react-native-classnames";
-import { Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import {
   ChartDot,
   ChartPath,
@@ -17,8 +17,11 @@ import {
 } from "@rainbow-me/animated-charts";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { getCoinRequest, getMarketChart } from "../Request";
+import { ListContext } from "../Context";
 
 export default function CoinDetails() {
+  const { listData, getStoreCoinId, removeStoreCoinId } =
+    useContext(ListContext);
   const navigation = useNavigation();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,10 +31,8 @@ export default function CoinDetails() {
 
   const route = useRoute();
   const {
-    params: { coinId }
+    params: { coinId },
   } = route;
-
-
 
   const getCoinData = async () => {
     setLoading(true);
@@ -57,7 +58,6 @@ export default function CoinDetails() {
     market_data: { current_price, price_change_percentage_24h },
   } = data;
   const { prices } = chatData;
-
 
   const handleIconColor =
     price_change_percentage_24h < 0 ? "#dc2626" : "#34d399";
@@ -89,6 +89,18 @@ export default function CoinDetails() {
     setUsdPrice(result.toString());
   };
 
+  const handleWatchListIconColor = () => {
+    return listData.some((coinIdValue) => coinIdValue === coinId);
+  };
+
+  const handleWatchListFunction = () => {
+    if (handleWatchListIconColor()) {
+      return removeStoreCoinId(coinId);
+    } else {
+      return getStoreCoinId(coinId);
+    }
+  };
+
   return (
     <View style={tw`px-3`}>
       <ChartPathProvider
@@ -110,7 +122,12 @@ export default function CoinDetails() {
               {symbol.toUpperCase()}
             </Text>
           </View>
-          <FontAwesome5 name="star" size={20} color="white" />
+          <Ionicons
+            name="star"
+            size={20}
+            color={handleWatchListIconColor() ? "yellow" : "white"}
+            onPress={handleWatchListFunction}
+          />
         </View>
         <View style={tw`p-3 flex flex-row justify-between`}>
           <View>

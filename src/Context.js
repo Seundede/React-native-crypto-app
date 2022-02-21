@@ -9,7 +9,7 @@ const ListContextProvider = ({ children }) => {
   const getWatchList = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@listData_key");
-      setListData(jsonValue != null ? JSON.parse(jsonValue) : null);
+      setListData(jsonValue != null ? JSON.parse(jsonValue) : []);
     } catch (error) {
       console.log(error);
     }
@@ -18,19 +18,26 @@ const ListContextProvider = ({ children }) => {
     try {
       const newListData = [...listData, coinId];
       const jsonValue = JSON.stringify(newListData);
-       await AsyncStorage.setItem("@listData_key", jsonValue);
-       setListData(newListData)
+      await AsyncStorage.setItem("@listData_key", jsonValue);
+      setListData(newListData);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const removeStoreCoinId = async(coinId) => {
-   const newListData = listData.filter((coinIdValue) => coinIdValue != coinId )
-   const jsonValue = JSON.stringify(newListData);
-   await AsyncStorage.setItem("@listData_key", jsonValue);
-   setListData(newListData);
-  }
+  const removeStoreCoinId = async (coinId) => {
+    try {
+      const newListData = listData.filter(
+        (coinIdValue) => coinIdValue !== coinId
+      );
+
+      const jsonValue = JSON.stringify(newListData);
+      await AsyncStorage.setItem("@listData_key", jsonValue);
+      setListData(newListData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     getWatchList();
   }, []);
