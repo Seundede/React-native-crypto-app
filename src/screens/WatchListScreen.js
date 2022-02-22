@@ -1,7 +1,7 @@
 import { FlatList, RefreshControl } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { ListContext } from "../Context";
-import Coin from "./Coin";
+import Coin from "../components/Coin";
 import { getWatchListData } from "../Request";
 
 const WatchListScreen = () => {

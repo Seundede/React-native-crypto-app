@@ -1,6 +1,6 @@
 import { View, FlatList, RefreshControl } from "react-native";
 import React, { useState, useEffect } from "react";
-import Coin from "./Coin";
+import Coin from "../components/Coin";
 import { getMarketData } from "../Request";
 
 

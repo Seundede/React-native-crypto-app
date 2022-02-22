@@ -1,8 +1,9 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../components/HomeScreen";
-import { FontAwesome } from "@expo/vector-icons";
-import WatchListScreen from "../components/WatchListScreen";
+import HomeScreen from "../screens/HomeScreen";
+import { FontAwesome, Fontisto } from "@expo/vector-icons";
+import WatchListScreen from "../screens/WatchListScreen";
+import UserScreen from "../screens/UserScreen";
 
 export const BottomNavigation = () => {
   const Tab = createBottomTabNavigator();
@@ -20,10 +21,10 @@ export const BottomNavigation = () => {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
-            <FontAwesome name="home" size={focused ? 30 : 25} color={color} />
+            <FontAwesome name="home" size={focused ? 27 : 25} color={color} />
           ),
         }}
       />
@@ -32,7 +33,16 @@ export const BottomNavigation = () => {
         component={WatchListScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <FontAwesome name="star" size={focused ? 30 : 25} color={color}/>
+            <FontAwesome name="star" size={focused ? 27 : 25} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Assets"
+        component={UserScreen}
+        options={{
+          tabBarIcon: ({ focused, color }) => (
+            <Fontisto name="graphql" size={focused ? 27 : 25} color={color} />
           ),
         }}
       />
