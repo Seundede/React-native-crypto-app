@@ -15,17 +15,17 @@ export default function Coin({ marketCoin }) {
     id,
   } = marketCoin;
   const handleMarketCap = (market_cap) => {
-    if (market_cap > 1_000_000_000_000) {
-      return `${Math.floor(market_cap / 1_000_000_000_000)}T`;
+    if (market_cap > 1e12) {
+      return `${Math.floor(market_cap / 1e12)}T`;
     }
-    if (market_cap > 1_000_000_000) {
-      return `${Math.floor(market_cap / 1_000_000_000)}B`;
+    if (market_cap > 1e9) {
+      return `${Math.floor(market_cap / 1e9)}B`;
     }
-    if (market_cap > 1_000_000) {
-      return `${Math.floor(market_cap / 1_000_000)}M`;
+    if (market_cap > 1e6) {
+      return `${Math.floor(market_cap / 1e6)}M`;
     }
-    if (market_cap > 1_000) {
-      return `${Math.floor(market_cap / 1_000)}K`;
+    if (market_cap > 1e3) {
+      return `${Math.floor(market_cap / 1e3)}K`;
     }
     return market_cap;
   };

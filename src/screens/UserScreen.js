@@ -1,16 +1,17 @@
-import { View, Text, FlatList, Pressable } from "react-native";
-import React from "react";
+import { View, Text, FlatList, Pressable, Modal } from "react-native";
+import React, { useState } from "react";
 import tw from "tailwind-react-native-classnames";
 import { AntDesign } from "@expo/vector-icons";
 import UserAssestItem from "../components/UserAssestItem";
 
 
-const UserScreen = () => {
+const UserScreen = ({ navigation }) => { 
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View>
       <FlatList
-        data={[{id:'bitcoin'}]}
-        renderItem={({item}) => <UserAssestItem item={item}/>}
+        data={[{ id: "bitcoin" }]}
+        renderItem={({ item }) => <UserAssestItem item={item} />}
         ListHeaderComponent={
           <View>
             <View
@@ -49,13 +50,40 @@ const UserScreen = () => {
           </View>
         }
         ListFooterComponent={
-          <Pressable style={tw`bg-indigo-500 rounded mx-2.5 `}>
-            <Text
-              style={tw`text-white p-2 text-center font-semibold text-base `}
+          <View style={tw`flex mt-32 mx-2.5`}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setModalVisible(!modalVisible);
+              }}
             >
-              Add Asset
-            </Text>
-          </Pressable>
+              <View style={tw`flex mt-32 mx-2.5 `}>
+                <View style={tw` bg-white rounded p-2`}>
+                  <Text style={tw`text-black`}>Hello World!</Text>
+                  <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                    <Text
+                      style={tw`bg-red-700 text-center p-2 text-base font-semibold border-none`}
+                    >
+                      Close
+                    </Text>
+                  </Pressable>
+                </View>
+              </View>
+            </Modal>
+            <Pressable
+              style={tw`bg-indigo-500 rounded `}
+              onPress={() => setModalVisible(true)}
+            >
+              <Text
+                style={tw`text-white p-2 text-center font-semibold text-base `}
+              >
+                Add Asset
+              </Text>
+            </Pressable>
+          </View>
         }
       />
     </View>
