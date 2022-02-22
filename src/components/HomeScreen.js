@@ -17,19 +17,18 @@ export default function Home() {
     setData(coinData);
     setLoading(false);
   };
-  const onRefresh = async () => {
-    setLoading(true);
-    const coinData = await getMarketData();
-    setData(coinData);
-    setLoading(false);
-  };
+ 
   return (
     <View>
       <FlatList
         data={data}
         renderItem={({ item }) => <Coin marketCoin={item} />}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={onRefresh} tintColor='white' />
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={getData}
+            tintColor="white"
+          />
         }
       />
     </View>

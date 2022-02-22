@@ -34,7 +34,7 @@ export default function CoinDetails() {
     params: { coinId },
   } = route;
 
-  const getCoinData = async () => {
+  const getCoinInformation = async () => {
     setLoading(true);
     const getCoinData = await getCoinRequest(coinId);
     const getCoinChart = await getMarketChart(coinId);
@@ -45,7 +45,7 @@ export default function CoinDetails() {
   };
 
   useEffect(() => {
-    getCoinData();
+    getCoinInformation();
   }, []);
 
   if (loading || !data) {
