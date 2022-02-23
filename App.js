@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { Navigation } from "./src/Navigation";
 import ListContextProvider from "./src/Context";
 
+
 export default function App() {
   return (
     <NavigationContainer
@@ -14,10 +15,11 @@ export default function App() {
       }}
     >
       <ListContextProvider>
-        <View style={styles.container}>
-          <StatusBar style="light" />
-          <Navigation />
-        </View>
+       
+          <View style={styles.container}>
+            <StatusBar style="light" />
+            <Navigation />
+          </View>
       </ListContextProvider>
     </NavigationContainer>
   );
