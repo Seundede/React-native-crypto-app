@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import { Navigation } from "./src/Navigation";
 import ListContextProvider from "./src/Context";
+import { RecoilRoot } from "recoil";
 
 
 export default function App() {
@@ -15,11 +16,12 @@ export default function App() {
       }}
     >
       <ListContextProvider>
-       
+       <RecoilRoot>
           <View style={styles.container}>
             <StatusBar style="light" />
             <Navigation />
           </View>
+        </RecoilRoot>
       </ListContextProvider>
     </NavigationContainer>
   );

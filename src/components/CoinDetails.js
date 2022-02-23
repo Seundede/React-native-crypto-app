@@ -126,7 +126,7 @@ export default function CoinDetails() {
             name="star"
             size={20}
             color={handleWatchListIconColor() ? "yellow" : "white"}
-            onPress={handleWatchListFunction}
+            onPress={()  => handleWatchListFunction()}
           />
         </View>
         <View style={tw`p-3 flex flex-row justify-between`}>
