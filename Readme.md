@@ -28,10 +28,16 @@ expo -V
 ```
 1. Clone the repo
 ```bash
-git clone https://github.com/Seundede/Nextjs-E-commerce.git
-cd Nextjs E-commerce
+git clone https://github.com/Seundede/React-native-crypto-app.git
+cd React-native-crypto-app
 ```
 2. Install the dependencies
 ```bash
 npm install
 ```
+3. Start the application
+```bash
+expo start
+
+```
+4. Open ios or andriod simulator to view application
