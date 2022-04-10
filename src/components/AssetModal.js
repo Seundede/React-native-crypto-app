@@ -1,25 +1,25 @@
-import { View, Text, Pressable, Modal, TextInput } from 'react-native'
-import React, { useState } from 'react'
-import SearchableDropDown from 'react-native-searchable-dropdown';
+import { View, Text, Pressable, Modal, TextInput, ActivityIndicator } from 'react-native'
+import React, { useState ,Suspense } from 'react'
 import tw from "tailwind-react-native-classnames";
+import SearchableDropDown from 'react-native-searchable-dropdown';
 const AssetModal = () => {
      const [modalVisible, setModalVisible] = useState(false);
      const [quantity, setQuantity] = useState();
   return (
-    <View>
+    <Suspense fallback={<ActivityIndicator size="large" style={tw`mt-24`} />}>
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setModalVisible(true);
+          setModalVisible(!modalVisible);
         }}
       >
         <View style={tw`flex mt-32 mx-3.5 `}>
           <View style={tw` bg-white rounded-md p-2`}>
             <View style={tw`my-4`}>
-              <SearchableDropdown
+              <SearchableDropDown
                 containerStyle={{ padding: 5, width: "100%" }}
                 itemStyle={{
                   padding: 10,
@@ -55,7 +55,7 @@ const AssetModal = () => {
                   placeholder="0"
                   style={tw`text-black text-4xl`}
                   keyboardType="numeric"
-                  onChangeText={setQuantity()}
+                  onChangeText={() =>setQuantity()}
                 />
                 <Text style={tw`text-black font-normal text-xs`}>BTC</Text>
               </View>
@@ -71,7 +71,7 @@ const AssetModal = () => {
               </Pressable>
             </View>
 
-            <Pressable onPress={() => setModalVisible(true)}>
+            <Pressable onPress={() => setModalVisible(!modalVisible)}>
               <Text
                 style={tw`bg-red-700 text-center p-2 text-base font-semibold`}
               >
@@ -83,13 +83,13 @@ const AssetModal = () => {
       </Modal>
       <Pressable
         style={tw`bg-indigo-500 rounded `}
-        onPress={() => setModalVisible(true)}
+        onPress={() => setModalVisible(!modalVisible)}
       >
         <Text style={tw`text-white p-2 text-center font-semibold text-base `}>
           Add New Asset
         </Text>
       </Pressable>
-    </View>
+    </Suspense>
   );
 }
 
