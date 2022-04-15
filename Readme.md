@@ -1,6 +1,6 @@
 # React native crypto application
 
-This is a mobile cryptocurrency application  that displays the  market price listing based on trade volume and market capitalization. This application is intended for users who are interested in cryptocurrency market and investment.  Real time and historical market changes of cryptocurrencies can be viewed on this app.
+This is a mobile cryptocurrency application  that displays the  market price listing based on trade volume and market capitalization. This application is intended for users who are interested in the cryptocurrency market and investment.  Real time and historical market changes of cryptocurrencies can be viewed on this app.
 
 <img width="508" alt="Screenshot 2022-04-10 at 21 31 53" src="https://user-images.githubusercontent.com/63148200/162639714-ae630bef-2af5-4496-abc5-c5dca2039ae6.png">
 
