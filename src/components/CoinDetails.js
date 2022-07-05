@@ -56,6 +56,7 @@ export default function CoinDetails() {
     name,
     symbol,
     market_data: { current_price, price_change_percentage_24h },
+    description: {en}
   } = data;
   const { prices } = chatData;
 
@@ -185,7 +186,9 @@ export default function CoinDetails() {
             />
           </View>
         </View>
-      </ChartPathProvider>
+     </ChartPathProvider>
+      <Text style={tw`text-white mt-6 mb-3 text-center text-lg`}>History</Text>
+      <Text style={tw`text-white px-3`}>{en}</Text>
     </View>
   );
 }
