@@ -56,6 +56,7 @@ export default function CoinDetails() {
     name,
     symbol,
     market_data: { current_price, price_change_percentage_24h },
+    description: { en },
   } = data;
   const { prices } = chatData;
 
@@ -126,7 +127,7 @@ export default function CoinDetails() {
             name="star"
             size={20}
             color={handleWatchListIconColor() ? "yellow" : "white"}
-            onPress={()  => handleWatchListFunction()}
+            onPress={() => handleWatchListFunction()}
           />
         </View>
         <View style={tw`p-3 flex flex-row justify-between`}>
@@ -186,6 +187,8 @@ export default function CoinDetails() {
           </View>
         </View>
       </ChartPathProvider>
+      <Text style={tw`text-white mt-6 mb-3 text-center text-lg`}>History</Text>
+      <Text style={tw`text-white px-3`}>{en}</Text>
     </View>
   );
 }
