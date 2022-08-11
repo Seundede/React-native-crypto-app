@@ -4,7 +4,10 @@ import { StyleSheet, View } from "react-native";
 import { Navigation } from "./src/Navigation";
 import ListContextProvider from "./src/Context";
 import { RecoilRoot } from "recoil";
+import { LogBox } from "react-native";
 
+
+LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
 
 export default function App() {
   return (

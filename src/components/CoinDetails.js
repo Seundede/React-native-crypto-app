@@ -188,7 +188,7 @@ export default function CoinDetails() {
         </View>
       </ChartPathProvider>
       <Text style={tw`text-white mt-6 mb-3 text-center text-lg`}>History</Text>
-      <Text style={tw`text-white px-3`}>{en}</Text>
+      <Text style={tw`text-white px-3 text-lg`}>{en}</Text>
     </View>
   );
 }
